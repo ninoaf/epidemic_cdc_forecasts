@@ -1,6 +1,7 @@
 # epidemic_cdc_forecasts
 
-INSTALL requirements:
+install requirements:
+
 conda env create -f conda_requirements.yml
 
 

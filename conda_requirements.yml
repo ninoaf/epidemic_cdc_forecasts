@@ -10,5 +10,4 @@ dependencies:
   - pandas
   - seaborn
   - pylops
-prefix: /Users/anino/anaconda3/envs/cdc_env
 

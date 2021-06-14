@@ -1,0 +1,14 @@
+name: cdc_env
+channels:
+  - defaults
+  - conda-forge
+dependencies:
+  - python=3.6
+  - scipy
+  - matplotlib
+  - ipykernel
+  - pandas
+  - seaborn
+  - pylops
+prefix: /Users/anino/anaconda3/envs/cdc_env
+

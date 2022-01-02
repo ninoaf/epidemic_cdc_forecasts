@@ -45,26 +45,37 @@ def extract_forecasts(data, forecast_period):
         if file[-4:] == '.csv':
             
             data = pd.read_csv(ensemble_forecast_directory+file)
-            
-            data = data[data['location'] == 'US']
-                
+                            
             data_quantile = data[data['type'] == 'quantile']
-                        
+            
+            print(set(data_quantile['location'].to_numpy()))
+            
             data_quantile_0025 = data[data['quantile'] == 0.025]    
             data_quantile_0975 = data[data['quantile'] == 0.975]     
             
             data_point = data[data['type'] == 'point']
-            
+                        
             forecast_dates.append(data_quantile_0025[data_quantile_0025['target'] == forecast_period]['forecast_date'].to_numpy()[0])
             dates.append(data_quantile_0025[data_quantile_0025['target'] == forecast_period]['target_end_date'].to_numpy()[0])
-            data_quantile_0025_cont.append(float(data_quantile_0025[data_quantile_0025['target'] == forecast_period]['value']))
-            data_quantile_0975_cont.append(float(data_quantile_0975[data_quantile_0975['target'] == forecast_period]['value']))
-            data_point_cont.append(float(data_point[data_point['target'] == forecast_period]['value']))
+            data_quantile_0025_cont.append(sum(data_quantile_0025[data_quantile_0025['target'] == forecast_period]['value']))
+            data_quantile_0975_cont.append(sum(data_quantile_0975[data_quantile_0975['target'] == forecast_period]['value']))
+            data_point_cont.append(sum(data_point[data_point['target'] == forecast_period]['value']))
     
     dates = [datetime.datetime.strptime(date, '%Y-%m-%d') for date in dates]
     forecast_dates = [datetime.datetime.strptime(date, '%Y-%m-%d') for date in forecast_dates]
     
     return np.asarray(forecast_dates), np.asarray(dates), np.asarray(data_quantile_0025_cont), np.asarray(data_quantile_0975_cont), np.asarray(data_point_cont)
+
+ensemble_forecast_directory = '../../data/EuroCOVIDhub-ensemble/'
+    
+forecast_dates_1wk, dates_1wk, data_quantile_0025_1wk, data_quantile_0975_1wk, data_point_1wk = \
+extract_forecasts(ensemble_forecast_directory, '1 wk ahead inc death')
+
+
+
+
+
+
 
 covid_data = pd.read_csv('../../data/time_series_covid19_deaths_US.csv')
 
@@ -77,8 +88,3 @@ deaths_covid_data = [covid_data.iloc[:,i].sum() for i in range(12,len(colnames))
 deaths_covid_data = np.array(deaths_covid_data)
 
 deaths_covid_data_diff = np.diff(deaths_covid_data)
-
-ensemble_forecast_directory = '../../data/EuroCOVIDhub-ensemble/'
-    
-forecast_dates_1wk, dates_1wk, data_quantile_0025_1wk, data_quantile_0975_1wk, data_point_1wk = \
-extract_forecasts(ensemble_forecast_directory, '1 wk ahead inc death')

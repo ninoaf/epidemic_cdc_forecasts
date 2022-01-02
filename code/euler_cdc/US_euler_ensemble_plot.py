@@ -194,7 +194,7 @@ ax[1,1].tick_params(axis='x', labelrotation=45)
 ax[1,1].set_ylim(0,150)
 ax[1,1].set_yticks([])
 plt.tight_layout()
-plt.savefig('prediction_error.png', dpi = 480)
+plt.savefig('US_prediction_error.png', dpi = 480)
 
 # plot
 fig, ax = plt.subplots(ncols = 2, nrows = 2)
@@ -244,4 +244,4 @@ ax[1,1].set_ylim(0,30)
 ax[1,1].set_yticks([])
  
 plt.tight_layout()
-plt.savefig("ensemble_forecast.png", dpi = 480)
+plt.savefig("US_ensemble_forecast.png", dpi = 480)

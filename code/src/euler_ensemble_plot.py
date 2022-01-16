@@ -66,7 +66,7 @@ def extract_forecasts(data, forecast_period):
     
     return np.asarray(forecast_dates), np.asarray(dates), np.asarray(data_quantile_0025_cont), np.asarray(data_quantile_0975_cont), np.asarray(data_point_cont)
 
-covid_data = pd.read_csv('../../data/Covid19_ground_truth_reports/fetched_Dec_2021/time_series_covid19_deaths_US.csv')
+covid_data = pd.read_csv('../../data/time_series_covid19_deaths_US.csv')
 
 colnames = covid_data.columns.tolist()
 
@@ -78,7 +78,7 @@ deaths_covid_data = np.array(deaths_covid_data)
 
 deaths_covid_data_diff = np.diff(deaths_covid_data)
 
-ensemble_forecast_directory = '../../data/CDC_ensemble_forecasts/fetched_Dec_2021/COVIDhub-ensemble/'
+ensemble_forecast_directory = '../../data/COVIDhub-ensemble/'
     
 forecast_dates_1wk, dates_1wk, data_quantile_0025_1wk, data_quantile_0975_1wk, data_point_1wk = \
 extract_forecasts(ensemble_forecast_directory, '1 wk ahead inc death')
@@ -194,7 +194,7 @@ ax[1,1].tick_params(axis='x', labelrotation=45)
 ax[1,1].set_ylim(0,150)
 ax[1,1].set_yticks([])
 plt.tight_layout()
-plt.savefig('US_prediction_error.png', dpi = 480)
+plt.savefig('prediction_error.png', dpi = 480)
 
 # plot
 fig, ax = plt.subplots(ncols = 2, nrows = 2)
@@ -205,7 +205,7 @@ ax[0,0].fill_between(dates_1wk, data_quantile_0975_1wk/div, data_quantile_0025_1
 ax[0,0].plot(dates_1wk, data_point_1wk/div, color = 'tab:blue', linewidth = 1.5, label = r'CDC ensemble')
 ax[0,0].plot(euler_prediction_dates_1wk, euler_prediction_arr_1wk/div, color = 'tab:red', linewidth = 1.5, label = r'Euler')
 ax[0,0].plot(rate_of_change_dates_1wk, rate_of_change_1wk/div, ls = (0, (5, 1)), color = 'k', linewidth = 1.5, label = r'reported')
-ax[0,0].set_xlim([datetime.date(2020, 6, 1), datetime.date(2022, 1, 1)])
+ax[0,0].set_xlim([datetime.date(2020, 6, 1), datetime.date(2021, 6, 1)])
 ax[0,0].set_xticks([])
 ax[0,0].set_ylabel(r'Weekly deaths [$\times 10^3$]')
 ax[0,0].set_ylim(0,30)
@@ -216,7 +216,7 @@ ax[0,1].fill_between(dates_2wk, data_quantile_0975_2wk/div, data_quantile_0025_2
 ax[0,1].plot(dates_2wk, data_point_2wk/div, color = 'tab:blue', linewidth = 1.5)
 ax[0,1].plot(euler_prediction_dates_2wk, euler_prediction_arr_2wk/div, color = 'tab:red', linewidth = 1.5)
 ax[0,1].plot(rate_of_change_dates_2wk, rate_of_change_2wk/div, ls = (0, (5, 1)), color = 'k', linewidth = 1.5)
-ax[0,1].set_xlim([datetime.date(2020, 6, 1), datetime.date(2022, 1, 1)])
+ax[0,1].set_xlim([datetime.date(2020, 6, 1), datetime.date(2021, 6, 1)])
 ax[0,1].set_xticks([])
 ax[0,1].set_ylim(0,30)
 ax[0,1].set_yticks([])
@@ -227,7 +227,7 @@ ax[1,0].fill_between(dates_3wk, data_quantile_0975_3wk/div, data_quantile_0025_3
 ax[1,0].plot(dates_3wk, data_point_3wk/div, color = 'tab:blue', linewidth = 1.5)
 ax[1,0].plot(euler_prediction_dates_3wk, euler_prediction_arr_3wk/div, color = 'tab:red', linewidth = 1.5)
 ax[1,0].plot(rate_of_change_dates_3wk, rate_of_change_3wk/div, ls = (0, (5, 1)), color = 'k', linewidth = 1.5)
-ax[1,0].set_xlim([datetime.date(2020, 6, 1), datetime.date(2022, 1, 1)])
+ax[1,0].set_xlim([datetime.date(2020, 6, 1), datetime.date(2021, 6, 1)])
 ax[1,0].tick_params(axis='x', labelrotation=45)
 ax[1,0].set_ylabel(r'Weekly deaths [$\times 10^3$]')
 ax[1,0].set_ylim(0,30)
@@ -238,10 +238,10 @@ ax[1,1].fill_between(dates_4wk, data_quantile_0975_4wk/div, data_quantile_0025_4
 ax[1,1].plot(dates_4wk, data_point_4wk/div, color = 'tab:blue', linewidth = 1.5)
 ax[1,1].plot(euler_prediction_dates_4wk, euler_prediction_arr_4wk/div, color = 'tab:red', linewidth = 1.5)
 ax[1,1].plot(rate_of_change_dates_4wk, rate_of_change_4wk/div, ls = (0, (5, 1)), color = 'k', linewidth = 1.5)
-ax[1,1].set_xlim([datetime.date(2020, 6, 1), datetime.date(2022, 1, 1)])
+ax[1,1].set_xlim([datetime.date(2020, 6, 1), datetime.date(2021, 6, 1)])
 ax[1,1].tick_params(axis='x', labelrotation=45)
 ax[1,1].set_ylim(0,30)
 ax[1,1].set_yticks([])
  
 plt.tight_layout()
-plt.savefig("US_ensemble_forecast_fetched_Dec_2021.png", dpi = 480)
+plt.savefig("ensemble_forecast.png", dpi = 480)
